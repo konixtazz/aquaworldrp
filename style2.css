@@ -1,0 +1,229 @@
+:root {
+  --bleu-principal: #00a8ff;
+  --bleu-fonce: #005080;
+  --fond-sombre: #0f111a;
+  --fond-carte: #1a1d29;
+  --texte-blanc: #ffffff;
+  --texte-gris: #b0b3c2;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Rajdhani", sans-serif;
+  background-color: var(--fond-sombre);
+  color: var(--texte-blanc);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+ul {
+  list-style: none;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+  background: rgba(15, 17, 26, 0.9);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0, 168, 255, 0.2);
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--bleu-principal);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.liens-navigation a {
+  margin-left: 30px;
+  font-weight: 600;
+  font-size: 18px;
+  transition: 0.3s;
+}
+
+.liens-navigation a:hover {
+  color: var(--bleu-principal);
+  text-shadow: 0 0 10px var(--bleu-principal);
+}
+
+header {
+  height: 100vh;
+  background:
+    linear-gradient(rgba(15, 17, 26, 0.7), rgba(15, 17, 26, 0.9)),
+    url("https://images.unsplash.com/photo-1596707328574-e81804f58c7e?q=80&w=1920&auto=format&fit=crop");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 20px;
+}
+
+h1 {
+  font-size: 4rem;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  text-shadow: 0 0 20px rgba(0, 168, 255, 0.5);
+}
+
+h1 span {
+  color: var(--bleu-principal);
+}
+
+.slogan {
+  font-size: 1.5rem;
+  color: var(--texte-gris);
+  margin-bottom: 40px;
+  max-width: 600px;
+}
+
+.bouton {
+  padding: 15px 40px;
+  background: var(--bleu-principal);
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 700;
+  border-radius: 5px;
+  border: 2px solid var(--bleu-principal);
+  transition: 0.3s;
+  cursor: pointer;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.bouton:hover {
+  background: transparent;
+  color: var(--bleu-principal);
+  box-shadow: 0 0 20px rgba(0, 168, 255, 0.4);
+}
+
+.bouton-discord {
+  background: #5865f2;
+  border-color: #5865f2;
+  margin-left: 20px;
+}
+
+.bouton-discord:hover {
+  box-shadow: 0 0 20px rgba(88, 101, 242, 0.4);
+  color: #5865f2;
+}
+
+.conteneur-ip {
+  margin-top: 30px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 10px 20px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: 0.3s;
+  border: 1px solid transparent;
+}
+
+.conteneur-ip:hover {
+  border-color: var(--bleu-principal);
+  background: rgba(0, 168, 255, 0.1);
+}
+
+.section-fonctionnalites {
+  padding: 100px 50px;
+  text-align: center;
+}
+
+.titre-section {
+  font-size: 2.5rem;
+  margin-bottom: 60px;
+  text-transform: uppercase;
+}
+
+.titre-section::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: var(--bleu-principal);
+  margin: 10px auto 0;
+}
+
+.grille-cartes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.carte {
+  background: var(--fond-carte);
+  padding: 40px 20px;
+  border-radius: 10px;
+  border-bottom: 3px solid var(--bleu-principal);
+  transition: transform 0.3s ease;
+}
+
+.carte:hover {
+  transform: translateY(-10px);
+}
+
+.carte i {
+  font-size: 3rem;
+  color: var(--bleu-principal);
+  margin-bottom: 20px;
+}
+
+.carte h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+.carte p {
+  color: var(--texte-gris);
+}
+
+footer {
+  background: black;
+  padding: 40px 20px;
+  text-align: center;
+  border-top: 1px solid #222;
+}
+
+footer p {
+  color: var(--texte-gris);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.5rem;
+  }
+  .liens-navigation {
+    display: none;
+  }
+  .bouton {
+    width: 100%;
+    margin: 10px 0;
+    justify-content: center;
+  }
+  .bouton-discord {
+    margin-left: 0;
+  }
+}

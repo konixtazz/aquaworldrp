@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEV</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="img/logo.png" type="image/png">
+</head>
+<body>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <div class="conteneur-connexion" id="conteneurConnexion">
+        <div class="carte-connexion">
+            <div class="entete-connexion">
+                <div class="logo-connexion">🔐</div>
+                <h1 class="titre-connexion">ACCEES DEV</h1>
+                <p class="sous-titre-connexion">Connexion sécurisée</p>
+            </div>
+            
+            <form class="formulaire-connexion" id="formulaireConnexion">
+                <div class="message-erreur" id="messageErreur">
+                    ❌ Identifiants incorrects
+                </div>
+                
+                <div class="groupe-connexion">
+                    <span class="icone-champ">👤</span>
+                    <input 
+                        type="text" 
+                        class="champ-connexion" 
+                        id="identifiantConnexion" 
+                        placeholder="Identifiant"
+                        autocomplete="username"
+                        required
+                    >
+                </div>
+
+                <div class="groupe-connexion">
+                    <span class="icone-champ">🔑</span>
+                    <input 
+                        type="password" 
+                        class="champ-connexion" 
+                        id="motDePasseConnexion" 
+                        placeholder="Mot de passe"
+                        autocomplete="current-password"
+                        required
+                    >
+                </div>
+
+                <button type="submit" class="bouton-connexion">
+                    Se connecter
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="conteneur" id="applicationPrincipale" style="display: none;">
+        <header class="entete">
+            <div class="entete-gauche">
+                <h1 class="titre">⚡ TABLEAU DE BORD DEV</h1>
+                <div class="statistiques">
+                    <div class="badge-stat">
+                        <div class="icone" style="background: var(--accent-success);"></div>
+                        <span id="totalTaches">0 tâches</span>
+                    </div>
+                    <div class="badge-stat">
+                        <div class="icone" style="background: var(--accent-warning);"></div>
+                        <span id="pourcentageProgres">0%</span>
+                    </div>
+                </div>
+            </div>
+            <div class="barre-outils">
+                <div class="info-utilisateur">
+                    <div class="avatar-utilisateur" id="avatarUtilisateur">A</div>
+                    <span class="nom-utilisateur" id="nomUtilisateur">Admin</span>
+                </div>
+                <button class="bouton bouton-secondaire bouton-icone" onclick="basculerStatistiques()" title="Statistiques">📊</button>
+                <button class="bouton" onclick="ouvrirModale()">+ Nouvelle Tâche</button>
+                <button class="bouton-deconnexion" onclick="seDeconnecter()">Déconnexion</button>
+            </div>
+        </header>
+
+        <div class="barre-filtres">
+            <span class="etiquette-filtre">FILTRER:</span>
+            <div class="tags-filtres">
+                <span class="tag-filtre" style="color: var(--tag-script);" data-type="Script" onclick="basculerFiltre('Script')">🔷 Script</span>
+                <span class="tag-filtre" style="color: var(--tag-mapping);" data-type="Mapping" onclick="basculerFiltre('Mapping')">🗺️ Mapping</span>
+                <span class="tag-filtre" style="color: var(--tag-ui);" data-type="UI" onclick="basculerFiltre('UI')">🎨 UI</span>
+                <span class="tag-filtre" style="color: var(--tag-car);" data-type="Véhicule" onclick="basculerFiltre('Véhicule')">🚗 Véhicule</span>
+            </div>
+            <input type="text" class="boite-recherche" id="boiteRecherche" placeholder="🔍 Rechercher une tâche..." oninput="filtrerTaches()">
+        </div>
+
+        <div class="panneau-statistiques" id="panneauStats" style="display: none;">
+            <div class="grille-statistiques">
+                <div class="carte-statistique">
+                    <div class="valeur-statistique" id="statTotal">0</div>
+                    <div class="label-statistique">Total Tâches</div>
+                </div>
+                <div class="carte-statistique">
+                    <div class="valeur-statistique" id="statTerminees">0</div>
+                    <div class="label-statistique">Terminées</div>
+                </div>
+                <div class="carte-statistique">
+                    <div class="valeur-statistique" id="statEnCours">0</div>
+                    <div class="label-statistique">En Cours</div>
+                </div>
+                <div class="carte-statistique">
+                    <div class="valeur-statistique" id="statEnRetard">0</div>
+                    <div class="label-statistique">En Retard</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tableau">
+            <div class="colonne" ondrop="deposer(event)" ondragover="autoriserDepot(event)" data-statut="aFaire">
+                <div class="entete-colonne">
+                    <span class="titre-colonne">📋 À FAIRE</span>
+                    <span class="compteur-colonne" id="compteurAFaire">0</span>
+                </div>
+                <div class="liste-taches" id="listeAFaire"></div>
+            </div>
+
+            <div class="colonne" ondrop="deposer(event)" ondragover="autoriserDepot(event)" data-statut="enCours">
+                <div class="entete-colonne">
+                    <span class="titre-colonne">💻 EN DÉVELOPPEMENT</span>
+                    <span class="compteur-colonne" id="compteurEnCours">0</span>
+                </div>
+                <div class="liste-taches" id="listeEnCours"></div>
+            </div>
+
+            <div class="colonne" ondrop="deposer(event)" ondragover="autoriserDepot(event)" data-statut="testing">
+                <div class="entete-colonne">
+                    <span class="titre-colonne">🐛 À TESTER</span>
+                    <span class="compteur-colonne" id="compteurTesting">0</span>
+                </div>
+                <div class="liste-taches" id="listeTesting"></div>
+            </div>
+
+            <div class="colonne" ondrop="deposer(event)" ondragover="autoriserDepot(event)" data-statut="termine">
+                <div class="entete-colonne">
+                    <span class="titre-colonne">🚀 TERMINER</span>
+                    <span class="compteur-colonne" id="compteurTermine">0</span>
+                </div>
+                <div class="liste-taches" id="listeTermine"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modale" id="modale">
+        <div class="contenu-modale">
+            <div class="entete-modale">
+                <h2 class="titre-modale" id="titreModale">Nouvelle Tâche</h2>
+                <button class="fermer-modale" onclick="fermerModale()">×</button>
+            </div>
+            
+            <form id="formulaireTache">
+                <div class="groupe-formulaire">
+                    <label class="label-formulaire">Titre de la tâche *</label>
+                    <input type="text" class="champ-formulaire" id="titreTache" placeholder="Ex: Script de garage avancé" required>
+                </div>
+
+                <div class="ligne-formulaire">
+                    <div class="groupe-formulaire">
+                        <label class="label-formulaire">Type *</label>
+                        <select class="select-formulaire" id="typeTache">
+                            <option value="Script">🔷 Script</option>
+                            <option value="Mapping">🗺️ Mapping</option>
+                            <option value="UI">🎨 UI / Design</option>
+                            <option value="Véhicule">🚗 Véhicule</option>
+                        </select>
+                    </div>
+
+                    <div class="groupe-formulaire">
+                        <label class="label-formulaire">Priorité</label>
+                        <select class="select-formulaire" id="prioriteTache">
+                            <option value="basse">🟢 Basse</option>
+                            <option value="moyenne" selected>🟡 Moyenne</option>
+                            <option value="haute">🔴 Haute</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="groupe-formulaire">
+                    <label class="label-formulaire">Date limite</label>
+                    <input type="date" class="champ-formulaire" id="dateLimiteTache">
+                </div>
+
+                <div class="groupe-formulaire">
+                    <label class="label-formulaire">Description</label>
+                    <textarea class="zone-texte-formulaire" id="descriptionTache" placeholder="Détails techniques, fonctionnalités, etc..."></textarea>
+                </div>
+
+                <div class="actions-modale">
+                    <button type="button" class="bouton bouton-secondaire" onclick="fermerModale()">Annuler</button>
+                    <button type="submit" class="bouton" id="boutonSoumettre">Créer la tâche</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="conteneur-toast" id="conteneurToast"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
