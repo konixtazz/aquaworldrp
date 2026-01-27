@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portail Staff</title>
+    <link rel="stylesheet" href="style3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <div id="conteneur-connexion">
+        <div class="boite-connexion">
+            <div class="icone-connexion">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <h2>Accès Staff</h2>
+            <p class="sous-titre-connexion">Connectez-vous pour accéder au portail</p>
+            <div class="groupe-saisie">
+                <i class="fa-solid fa-user"></i>
+                <input type="text" id="utilisateur" placeholder="Identifiant">
+            </div>
+            <div class="groupe-saisie">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" id="motdepasse" placeholder="Mot de passe">
+            </div>
+            <button onclick="connexion()" class="bouton-connexion">
+                <span>Se connecter</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+            <p id="msg-erreur"></p>
+        </div>
+    </div>
+
+    <div id="conteneur-tableau-bord" style="display: none;">
+        
+        <nav class="barre-laterale">
+            <div class="en-tete-barre">
+                <div class="logo-barre">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <h3>Staff</h3>
+            </div>
+            
+            <div class="info-utilisateur">
+                <div class="avatar-utilisateur">
+                    <i class="fa-solid fa-user-shield"></i>
+                </div>
+                <div class="details-utilisateur">
+                    <span class="nom-utilisateur" id="utilisateur-actuel"></span>
+                    <span class="statut-en-ligne">
+                        <span class="point-vert"></span>
+                        En ligne
+                    </span>
+                </div>
+            </div>
+
+            <ul class="menu-navigation">
+                <li onclick="afficherSection('section-reglement')" class="item-menu actif">
+                    <i class="fa-solid fa-book"></i>
+                    <span>Règlement</span>
+                </li>
+                <li onclick="afficherSection('section-equipe')" class="item-menu">
+                    <i class="fa-solid fa-users"></i>
+                    <span>Équipe & Sanctions</span>
+                </li>
+                <li onclick="afficherSection('section-guide')" class="item-menu">
+                    <i class="fa-solid fa-gavel"></i>
+                    <span>Doc Sanctions Jeu</span>
+                </li>
+            </ul>
+
+            <div class="pied-barre">
+                <button onclick="deconnexion()" class="bouton-deconnexion">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Déconnexion</span>
+                </button>
+            </div>
+        </nav>
+
+        <main class="contenu-principal">
+            <div class="en-tete-contenu">
+                <h1 id="titre-section">📜 Règlement Staff</h1>
+                <div class="info-session">
+                    <i class="fa-solid fa-clock"></i>
+                    <span id="horloge"></span>
+                </div>
+            </div>
+
+            <section id="section-reglement" class="section-active">
+                <div class="grille-cartes">
+                    <div class="carte carte-animee">
+                        <div class="en-tete-carte">
+                            <i class="fa-solid fa-handshake icone-carte"></i>
+                            <h3>Article 1 : Comportement</h3>
+                        </div>
+                        <p>Le staff doit être impartial et poli en toutes circonstances. Pas d'insultes, même en réponse.</p>
+                        <div class="badge-importance haute">Priorité haute</div>
+                    </div>
+
+                    <div class="carte carte-animee">
+                        <div class="en-tete-carte">
+                            <i class="fa-solid fa-clock icone-carte"></i>
+                            <h3>Article 2 : Activité</h3>
+                        </div>
+                        <p>Une présence minimum de 5h par semaine est requise. Toute absence doit être signalée.</p>
+                        <div class="badge-importance moyenne">Priorité moyenne</div>
+                    </div>
+
+                    <div class="carte carte-animee">
+                        <div class="en-tete-carte">
+                            <i class="fa-solid fa-lock icone-carte"></i>
+                            <h3>Article 3 : Confidentialité</h3>
+                        </div>
+                        <p>Ce qui se dit dans les réunions staff reste dans le staff.</p>
+                        <div class="badge-importance haute">Priorité haute</div>
+                    </div>
+
+                    <div class="carte carte-animee">
+                        <div class="en-tete-carte">
+                            <i class="fa-solid fa-scale-balanced icone-carte"></i>
+                            <h3>Article 4 : Impartialité</h3>
+                        </div>
+                        <p>Traiter tous les joueurs de manière équitable, sans favoritisme ni discrimination.</p>
+                        <div class="badge-importance haute">Priorité haute</div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="section-equipe" style="display: none;">
+                <div class="carte carte-tableau">
+                    <div class="en-tete-tableau">
+                        <h3>
+                            <i class="fa-solid fa-users"></i>
+                            Liste des membres du staff
+                        </h3>
+                        <div class="statistiques-rapides">
+                            <div class="stat-item">
+                                <span class="stat-valeur" id="total-staff">0</span>
+                                <span class="stat-label">Membres</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-valeur actifs" id="staff-actifs">0</span>
+                                <span class="stat-label">Actifs</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="conteneur-tableau">
+                        <table id="tableau-staff">
+                            <thead>
+                                <tr>
+                                    <th>Pseudo</th>
+                                    <th>Grade</th>
+                                    <th>Dernière connexion</th>
+                                    <th class="fondateur-uniquement">⚠️ Avertissements</th>
+                                </tr>
+                            </thead>
+                            <tbody id="corps-tableau-staff">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section id="section-guide" style="display: none;">
+                <div class="carte carte-tableau">
+                    <div class="en-tete-tableau">
+                        <h3>
+                            <i class="fa-solid fa-gavel"></i>
+                            Barème des sanctions
+                        </h3>
+                        <p class="description-tableau">Guide de référence pour l'application des sanctions</p>
+                    </div>
+                    <div class="conteneur-tableau">
+                        <table class="tableau-sanctions">
+                            <thead>
+                                <tr>
+                                    <th>Infraction</th>
+                                    <th>Sanction 1ère fois</th>
+                                    <th>Récidive</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <span class="badge-infraction faible">Spam Chat</span>
+                                    </td>
+                                    <td><span class="badge-sanction">Mute 10min</span></td>
+                                    <td><span class="badge-sanction">Mute 1h</span></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="badge-infraction moyenne">Insultes légères</span>
+                                    </td>
+                                    <td><span class="badge-sanction">Mute 30min</span></td>
+                                    <td><span class="badge-sanction">Mute 24h</span></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="badge-infraction grave">Cheat / Triche</span>
+                                    </td>
+                                    <td><span class="badge-sanction grave">Ban 30j</span></td>
+                                    <td><span class="badge-sanction grave">Ban Permanent</span></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="badge-infraction grave">Harcèlement</span>
+                                    </td>
+                                    <td><span class="badge-sanction grave">Ban 7j</span></td>
+                                    <td><span class="badge-sanction grave">Ban Permanent</span></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="badge-infraction moyenne">Publicité</span>
+                                    </td>
+                                    <td><span class="badge-sanction">Kick + Avertissement</span></td>
+                                    <td><span class="badge-sanction">Ban 14j</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script3.js"></script>
+</body>
+</html>
