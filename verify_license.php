@@ -15,7 +15,7 @@ $licenseKey = $data['license'] ?? '';
 // --- CONFIGURATION DE TEST ---
 // Dans un vrai système, tu vérifierais cela dans une base de données SQL
 $validKeys = [
-    "cfxk_1l9StJQJTHYtAZr1KRGop_3T2XHr" => true,
+    "" => true,
 ];
 
 // Vérification
