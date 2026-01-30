@@ -3,7 +3,7 @@ header('Content-Type: application/json');
 
 // Ta liste de licences autorisées (ou connecte ça à une base de données SQL)
 $allowed_licenses = [
-    "cfxk_1l9StJQJTHYtAZr1KRGop_3T2XHr",
+    "",
 ];
 
 // Récupérer la licence envoyée par le script FiveM
