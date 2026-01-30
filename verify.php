@@ -2,7 +2,7 @@
 // verify.php
 
 // --- CONFIGURATION ---
-$secret_token = "MonSuperSecretToken123"; // Change ceci par un mot de passe unique
+$secret_token = "Tomdel26aout2007"; // Change ceci par un mot de passe unique
 $allowed_ips = [
     '45.95.113.119',      // Localhost (pour tes tests)
     '192.168.18.202'
